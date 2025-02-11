@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Animated Calculator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            color: #ffcc00;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
+            animation: bounce 1.5s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .calculator {
+            background: #2c3e50;
+            padding: 7px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            width: 280px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .display input {
+            width: 100%;
+            height: 60px;
+            background: #1a252f;
+            color: #ffcc00;
+            font-size: 2rem;
+            text-align: right;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: inset 2px 2px 10px rgba(255, 255, 255, 0.1);
+        }
+        
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            background: #34495e;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+        }
+        
+        button:hover {
+            background: #3b5998;
+            transform: scale(1.1);
+        }
+        
+        .operator { color: #ffcc00; }
+        .equal { background: #ffcc00; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="title">🧮 Epic Calculator</div>
+    <div class="calculator">
+        <div class="display">
+            <input type="text" id="display" disabled>
+        </div>
+        <div class="buttons">
+            <button class="operator" onclick="clearDisplay()">AC</button>
+            <button class="operator" onclick="deleteLast()">⌫</button>
+            <button class="operator" onclick="appendValue('.')">.</button>
+            <button class="operator" onclick="appendValue('/')">÷</button>
+            
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button class="operator" onclick="appendValue('*')">×</button>
+            
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button class="operator" onclick="appendValue('-')">−</button>
+            
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button class="operator" onclick="appendValue('+')">+</button>
+            
+            <button onclick="appendValue('00')">00</button>
+            <button onclick="appendValue('0')">0</button>
+            <button class="equal" onclick="calculateResult()">=</button>
+        </div>
+    </div>
+    
+    <script>
+        let display = document.getElementById("display");
+        
+        function appendValue(value) {
+            display.value += value;
+        }
+        
+        function clearDisplay() {
+            display.value = "";
+        }
+        
+        function deleteLast() {
+            display.value = display.value.slice(0, -1);
+        }
+        
+        function calculateResult() {
+            try {
+                display.value = eval(display.value);
+            } catch {
+                display.value = "Error";
+            }
+        }
+    </script>
+</body>
+</html>
